@@ -1,0 +1,171 @@
+/* ===================================================================
+   Smart Plant Health Monitoring System - Responsive Layouts
+   Breakpoints: Mobile (<768px), Tablet (768px-1024px), Desktop (>1024px)
+   =================================================================== */
+
+/* Tablet & Smaller Screens (< 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-subgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .alerts-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content-area {
+    padding: 1.25rem 1.25rem 2.5rem 1.25rem;
+  }
+
+  .plant-hero-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .plant-hero-stats {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Mobile Screens (< 768px) */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 35;
+    display: none;
+  }
+
+  .sidebar-backdrop.active {
+    display: block;
+  }
+
+  .main-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .topbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .topbar-right {
+    gap: 0.65rem;
+  }
+
+  .live-datetime {
+    display: none;
+  }
+
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-stats-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .alerts-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plants-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .alert-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .time-btn-group {
+    width: 100%;
+    display: flex;
+  }
+
+  .time-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.45rem 0.4rem;
+  }
+
+  .chart-container-wrap {
+    height: 250px;
+  }
+
+  .modal-container {
+    max-height: 95vh;
+  }
+
+  .toast-container {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    max-width: none;
+  }
+}
+
+/* Print Optimization */
+@media print {
+  .sidebar, .topbar, .demo-banner, .btn, .filter-bar, .modal-overlay, .toast-container {
+    display: none !important;
+  }
+
+  .main-wrapper {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .content-area {
+    padding: 0 !important;
+  }
+
+  .chart-card, .metric-card, .history-table-card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+  }
+}

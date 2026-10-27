@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="potGradB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="leafGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ade80" />
+      <stop offset="100%" stop-color="#16a34a" />
+    </linearGradient>
+    <linearGradient id="leafGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+    <linearGradient id="leafGradDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16a34a" />
+      <stop offset="100%" stop-color="#14532d" />
+    </linearGradient>
+    <filter id="shadowB" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Background Soft Circle -->
+  <circle cx="100" cy="100" r="90" fill="#f0fdf4" />
+
+  <!-- Soil -->
+  <ellipse cx="100" cy="146" rx="46" ry="12" fill="#451a03" opacity="0.8" />
+
+  <!-- Basil Stems -->
+  <path d="M100 146 Q100 110 100 70" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round" />
+  <path d="M100 120 Q85 105 70 100" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round" />
+  <path d="M100 115 Q118 100 132 98" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round" />
+  <path d="M100 90 Q80 80 68 70" fill="none" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round" />
+  <path d="M100 85 Q120 72 134 65" fill="none" stroke="#22c55e" stroke-width="3.5" stroke-linecap="round" />
+
+  <!-- Basil Leaves (Glossy, broad oval, curved tips) -->
+  <!-- Bottom Left Leaf -->
+  <g filter="url(#shadowB)">
+    <path d="M70 100 C50 85 40 105 52 118 C62 128 80 115 70 100 Z" fill="url(#leafGrad2)" />
+    <path d="M68 104 Q58 112 55 116" stroke="#86efac" stroke-width="1.5" fill="none" opacity="0.6" />
+  </g>
+
+  <!-- Bottom Right Leaf -->
+  <g filter="url(#shadowB)">
+    <path d="M132 98 C150 82 162 100 150 115 C138 126 122 112 132 98 Z" fill="url(#leafGradDark)" />
+    <path d="M134 102 Q144 110 147 114" stroke="#86efac" stroke-width="1.5" fill="none" opacity="0.5" />
+  </g>
+
+  <!-- Mid Left Leaf -->
+  <g filter="url(#shadowB)">
+    <path d="M68 70 C48 55 42 75 52 86 C64 96 78 82 68 70 Z" fill="url(#leafGrad1)" />
+    <path d="M66 73 Q58 80 54 83" stroke="#bbf7d0" stroke-width="1.5" fill="none" opacity="0.7" />
+  </g>
+
+  <!-- Mid Right Leaf -->
+  <g filter="url(#shadowB)">
+    <path d="M134 65 C154 50 160 70 148 82 C138 92 124 78 134 65 Z" fill="url(#leafGrad2)" />
+    <path d="M136 68 Q145 76 146 80" stroke="#86efac" stroke-width="1.5" fill="none" opacity="0.6" />
+  </g>
+
+  <!-- Center Big Leaves -->
+  <g filter="url(#shadowB)">
+    <path d="M100 80 C80 60 75 40 98 42 C120 44 115 65 100 80 Z" fill="url(#leafGrad1)" />
+    <path d="M98 70 Q96 55 96 46" stroke="#bbf7d0" stroke-width="1.5" fill="none" opacity="0.8" />
+  </g>
+
+  <!-- Top Tender Leaves -->
+  <g filter="url(#shadowB)">
+    <path d="M100 60 C90 45 88 32 100 30 C112 32 110 45 100 60 Z" fill="url(#leafGrad1)" />
+    <path d="M100 48 L100 34" stroke="#dcfce7" stroke-width="1.2" fill="none" />
+  </g>
+
+  <!-- Modern Ceramic Slate Pot -->
+  <g filter="url(#shadowB)">
+    <rect x="50" y="140" width="100" height="10" rx="3" fill="#475569" />
+    <path d="M55 150 L65 186 Q67 188 72 188 L128 188 Q133 188 135 186 L145 150 Z" fill="url(#potGradB)" />
+    <line x1="60" y1="158" x2="140" y2="158" stroke="#64748b" stroke-width="1.5" />
+    <!-- Modern minimalist geo pattern on pot -->
+    <circle cx="100" cy="172" r="5" fill="#38bdf8" opacity="0.8" />
+  </g>
+</svg>

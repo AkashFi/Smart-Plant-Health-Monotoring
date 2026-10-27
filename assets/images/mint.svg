@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="mintLeaf1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="mintLeaf2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="shadowM" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <circle cx="100" cy="100" r="90" fill="#f0fdf4" />
+  <ellipse cx="100" cy="146" rx="46" ry="12" fill="#451a03" opacity="0.8" />
+
+  <!-- Mint Leaves with Serrated appearance -->
+  <path d="M100 146 Q100 100 100 65" fill="none" stroke="#059669" stroke-width="4" stroke-linecap="round" />
+  <path d="M100 120 Q80 110 65 105" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" />
+  <path d="M100 115 Q120 105 135 100" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" />
+  <path d="M100 90 Q80 80 68 70" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" />
+  <path d="M100 85 Q120 72 132 62" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" />
+
+  <g filter="url(#shadowM)">
+    <path d="M65 105 C50 90 40 108 55 120 C70 128 78 115 65 105 Z" fill="url(#mintLeaf1)" />
+    <path d="M135 100 C155 88 160 105 145 120 C132 128 122 112 135 100 Z" fill="url(#mintLeaf2)" />
+    <path d="M68 70 C48 55 42 75 52 86 C64 96 78 82 68 70 Z" fill="url(#mintLeaf2)" />
+    <path d="M132 62 C152 48 158 68 146 80 C136 90 122 75 132 62 Z" fill="url(#mintLeaf1)" />
+    <path d="M100 65 C85 45 88 32 100 30 C112 32 115 45 100 65 Z" fill="url(#mintLeaf2)" />
+  </g>
+
+  <!-- Modern Copper/Clay Pot -->
+  <g filter="url(#shadowM)">
+    <rect x="52" y="140" width="96" height="10" rx="3" fill="#ca8a04" />
+    <path d="M57 150 L67 186 Q69 188 74 188 L126 188 Q131 188 133 186 L143 150 Z" fill="#a16207" />
+    <line x1="62" y1="156" x2="138" y2="156" stroke="#fde047" stroke-width="2" opacity="0.6" />
+  </g>
+</svg>

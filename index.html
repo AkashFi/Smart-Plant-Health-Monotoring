@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloraSense IoT — Smart Plant Health Monitoring System</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Mobile Drawer Backdrop -->
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+  <div class="app-container">
+    
+    <!-- ===============================================================
+         Left Navigation Sidebar
+         =============================================================== -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">
+          <!-- Leaf / Plant SVG -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h1>FloraSense IoT</h1>
+          <span>Smart Plant System</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#dashboard" class="nav-link active" id="nav-dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="7" height="9" x="3" y="3" rx="1"/>
+            <rect width="7" height="5" x="14" y="3" rx="1"/>
+            <rect width="7" height="9" x="14" y="12" rx="1"/>
+            <rect width="7" height="5" x="3" y="16" rx="1"/>
+          </svg>
+          Dashboard
+        </a>
+
+        <a href="#plants" class="nav-link" id="nav-plants">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 10v10"/>
+            <path d="M12 14c-2.5 0-4-2-4-4 0-1.5 1-3 4-3s4 1.5 4 3c0 2-1.5 4-4 4Z"/>
+            <path d="M7 21h10"/>
+          </svg>
+          My Plants
+        </a>
+
+        <a href="#history-charts" class="nav-link" id="nav-history-charts">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/>
+            <path d="m19 9-5 5-4-4-3 3"/>
+          </svg>
+          Historical Data
+        </a>
+
+        <a href="#alerts" class="nav-link" id="nav-alerts">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+          </svg>
+          Alerts & Recommendations
+          <span id="sidebar-alerts-badge" class="nav-badge" style="display: none;">0</span>
+        </a>
+
+        <a href="#care-log" class="nav-link" id="nav-care-log">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8v4l3 3"/>
+            <circle cx="12" cy="12" r="9"/>
+          </svg>
+          Plant Care History
+        </a>
+
+        <a href="#settings" class="nav-link" id="nav-settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="esp32-quick-status">
+          <span style="color: var(--text-muted);">IoT Device:</span>
+          <span id="sidebar-esp-status" class="connection-pill connected">
+            <span class="status-dot"></span> ESP32
+          </span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===============================================================
+         Main Content Area
+         =============================================================== -->
+    <div class="main-wrapper">
+      
+      <!-- Top Demo Mode Warning Banner -->
+      <div id="demo-mode-banner" class="demo-banner">
+        <div>
+          <strong>⚡ DEMO SIMULATION MODE ACTIVE:</strong>
+          <span>Displaying simulated IoT telemetry and alert triggers. Switch to Live API in Settings.</span>
+        </div>
+        <button class="demo-banner-action" onclick="window.location.hash='#settings'">Configure Backend</button>
+      </div>
+
+      <!-- Top Header Navigation Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="btn-mobile-menu" class="menu-toggle" aria-label="Toggle navigation menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="4" x2="20" y1="12" y2="12"/>
+              <line x1="4" x2="20" y1="6" y2="6"/>
+              <line x1="4" x2="20" y1="18" y2="18"/>
+            </svg>
+          </button>
+          
+          <div class="system-title-block">
+            <h2>
+              Smart Plant Health Monitoring System
+              <span id="topbar-demo-badge" class="chip highlight">Demo Mode</span>
+            </h2>
+            <p class="welcome-msg">Welcome back, Akash • IoT Telemetry Engine</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Live Date & Time -->
+          <div class="live-datetime">
+            <span id="live-clock" class="clock">--:--:--</span>
+            <span id="live-date">Loading...</span>
+          </div>
+
+          <!-- ESP32 Connection Status (Connected, Disconnected, Connecting) -->
+          <div id="esp32-status-pill" class="connection-pill connected" title="ESP32 IoT Node Hardware Status">
+            <span class="status-dot"></span>
+            <span id="esp32-status-text">ESP32 Online</span>
+          </div>
+
+          <!-- Last Telemetry Update & Stale Warning -->
+          <div class="update-info">
+            <span>Synced: <strong id="last-sensor-time" style="color: var(--text-main);">Just now</strong></span>
+            <span id="stale-data-badge" class="stale-badge" style="display: none;">
+              ⚠️ STALE
+            </span>
+          </div>
+
+          <!-- Manual Refresh Button -->
+          <button id="global-refresh-btn" class="btn-icon" title="Refresh Live Readings" aria-label="Refresh telemetry">
+            <svg id="global-refresh-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+              <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+              <path d="M16 21h5v-5"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Workspace Views -->
+      <main class="content-area">
+
+        <!-- ===========================================================
+             PAGE 1: DASHBOARD & LIVE MONITORING
+             =========================================================== -->
+        <section id="page-dashboard" class="page active">
+          
+          <!-- Plant Quick Selector & Status Summary Bar -->
+          <div class="plant-selector-card">
+            <div class="selector-left">
+              <label for="dashboard-plant-select" style="font-size: 0.875rem; font-weight: 700; color: var(--text-main);">
+                Select Plant:
+              </label>
+              <select id="dashboard-plant-select" class="plant-select-dropdown">
+                <!-- Injected via JavaScript -->
+              </select>
+            </div>
+            
+            <div class="plant-summary-chips">
+              <span id="summary-total-plants" class="chip highlight">4 Plants</span>
+              <span class="chip">Sensors: Soil • Temp • Light</span>
+              <span class="chip">Hardware: ESP32 NodeMCU</span>
+            </div>
+          </div>
+
+          <!-- Selected Plant Hero Banner Card -->
+          <div class="plant-hero-banner">
+            <div class="plant-hero-profile">
+              <div class="plant-hero-img-wrap">
+                <img id="hero-plant-img" src="assets/images/tomato.svg" alt="Plant Avatar" />
+              </div>
+              <div class="plant-hero-details">
+                <h3>
+                  <span id="hero-plant-name">Roma Tomato</span>
+                  <span id="hero-plant-id" class="plant-id-badge">PLANT-001</span>
+                </h3>
+                <div class="plant-meta-tags">
+                  <span class="meta-tag">🌿 <span id="hero-plant-species">Solanum lycopersicum</span></span>
+                  <span class="meta-tag">🌱 Stage: <strong id="hero-plant-stage">Flowering</strong></span>
+                  <span class="meta-tag">🏡 Env: <strong id="hero-plant-env">Greenhouse</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="plant-hero-stats">
+              <div class="stat-item">
+                <span class="label">Last Watered</span>
+                <span id="hero-last-watered" class="val">--</span>
+              </div>
+              <div class="stat-item">
+                <span class="label">Last Fertilized</span>
+                <span id="hero-last-fertilized" class="val">--</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 6: 4 Prominent Metric Cards -->
+          <div class="metric-grid">
+            
+            <!-- 1. Soil Moisture Metric Card -->
+            <div class="metric-card">
+              <div class="metric-card-header">
+                <div class="metric-title">
+                  <div class="metric-icon-wrap icon-moisture">
+                    💧
+                  </div>
+                  Soil Moisture
+                </div>
+                <span id="badge-moisture" class="metric-status-badge badge-optimal">Optimal</span>
+              </div>
+
+              <div class="metric-main-val">
+                <span id="val-moisture" class="metric-number">--</span>
+                <span id="unit-moisture" class="metric-unit">%</span>
+              </div>
+
+              <div class="range-bar-wrapper">
+                <div class="progress-track">
+                  <div id="bar-moisture" class="progress-fill fill-blue" style="width: 50%;"></div>
+                </div>
+                <div class="range-info">
+                  <span>Recommended:</span>
+                  <strong id="range-moisture-rec">55% - 80%</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Temperature Metric Card -->
+            <div class="metric-card">
+              <div class="metric-card-header">
+                <div class="metric-title">
+                  <div class="metric-icon-wrap icon-temp">
+                    🌡️
+                  </div>
+                  Temperature
+                </div>
+                <span id="badge-temp" class="metric-status-badge badge-optimal">Optimal</span>
+              </div>
+
+              <div class="metric-main-val">
+                <span id="val-temp" class="metric-number">--</span>
+                <span id="unit-temp" class="metric-unit">°C</span>
+              </div>
+
+              <div class="range-bar-wrapper">
+                <div class="progress-track">
+                  <div id="bar-temp" class="progress-fill fill-orange" style="width: 60%;"></div>
+                </div>
+                <div class="range-info">
+                  <span>Recommended:</span>
+                  <strong id="range-temp-rec">18°C - 28°C</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Light Intensity Metric Card -->
+            <div class="metric-card">
+              <div class="metric-card-header">
+                <div class="metric-title">
+                  <div class="metric-icon-wrap icon-light">
+                    ☀️
+                  </div>
+                  Light Intensity
+                </div>
+                <span id="badge-light" class="metric-status-badge badge-optimal">Optimal</span>
+              </div>
+
+              <div class="metric-main-val">
+                <span id="val-light" class="metric-number">--</span>
+                <span id="unit-light" class="metric-unit">lux</span>
+              </div>
+
+              <div class="range-bar-wrapper">
+                <div class="progress-track">
+                  <div id="bar-light" class="progress-fill fill-yellow" style="width: 70%;"></div>
+                </div>
+                <div class="range-info">
+                  <span>Target Range:</span>
+                  <strong id="range-light-rec">15,000 - 35,000 lux</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Overall Plant Health Card -->
+            <div class="metric-card">
+              <div class="metric-card-header">
+                <div class="metric-title">
+                  <div class="metric-icon-wrap icon-health">
+                    🌿
+                  </div>
+                  Overall Health
+                </div>
+                <span id="badge-overall-health" class="metric-status-badge badge-healthy">Healthy</span>
+              </div>
+
+              <div class="metric-main-val">
+                <span id="val-overall-health" class="metric-number" style="font-size: 1.85rem;">Healthy</span>
+              </div>
+
+              <p id="desc-overall-health" class="health-explanation">
+                Analyzing sensor telemetry against threshold rules...
+              </p>
+
+              <div id="factors-overall-health" class="health-factors-list">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Section 10: Plant Care Quick Actions Toolbar -->
+          <div class="quick-actions-card">
+            <div class="quick-actions-header">
+              <span>⚡ Quick Plant Care Actions:</span>
+              <span style="font-size: 0.775rem; color: var(--text-muted); font-weight: normal;">(Record manual interventions & care logs)</span>
+            </div>
+            <div class="actions-button-group">
+              <button id="action-record-water" class="btn btn-primary btn-sm">
+                💧 Record Watering
+              </button>
+              <button id="action-record-fertilizer" class="btn btn-secondary btn-sm">
+                🌱 Record Fertilizer
+              </button>
+              <button id="action-record-pest" class="btn btn-secondary btn-sm">
+                🐛 Record Pest Treatment
+              </button>
+              <button id="action-add-note" class="btn btn-secondary btn-sm">
+                📝 Add Plant Note
+              </button>
+              <button id="action-view-history" class="btn btn-secondary btn-sm">
+                📋 View Full History
+              </button>
+              <button id="action-edit-settings" class="btn btn-secondary btn-sm">
+                ⚙️ Threshold Rules
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Telemetry Sparkline & Active Alerts Split Grid -->
+          <div class="dashboard-subgrid">
+            
+            <div class="telemetry-preview-card">
+              <div class="card-title-bar">
+                <h4>📈 Live Telemetry Stream (Past 2 Hours)</h4>
+                <a href="#history-charts" style="font-size: 0.8rem; color: var(--primary-600); text-decoration: none; font-weight: 600;">
+                  Expand Interactive Charts →
+                </a>
+              </div>
+              <div style="height: 190px; position: relative;">
+                <canvas id="sparkline-chart"></canvas>
+              </div>
+            </div>
+
+            <div class="active-alerts-card">
+              <div class="card-title-bar">
+                <h4>
+                  🔔 Active Alerts for Plant
+                  <span id="dashboard-active-alerts-count" class="chip highlight" style="font-size: 0.75rem;">0</span>
+                </h4>
+                <a href="#alerts" style="font-size: 0.8rem; color: var(--primary-600); text-decoration: none; font-weight: 600;">
+                  Alert Center →
+                </a>
+              </div>
+              <div id="dashboard-active-alerts" class="plant-alerts-list">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ===========================================================
+             PAGE 2: MY PLANTS
+             =========================================================== -->
+        <section id="page-plants" class="page">
+          <div class="page-header">
+            <div class="page-header-title">
+              <h2>My Plants Directory</h2>
+              <p>Manage plant species, stages, individual thresholds, and monitor health summaries.</p>
+            </div>
+            <button id="btn-add-plant" class="btn btn-primary">
+              + Register New Plant
+            </button>
+          </div>
+
+          <!-- Plants Grid -->
+          <div id="plants-grid-container" class="plants-grid">
+            <!-- Injected via JavaScript -->
+          </div>
+        </section>
+
+        <!-- ===========================================================
+             PAGE 3: HISTORICAL DATA & INTERACTIVE CHARTS
+             =========================================================== -->
+        <section id="page-history-charts" class="page">
+          <div class="page-header">
+            <div class="page-header-title">
+              <h2>Historical Telemetry Analytics</h2>
+              <p>High-resolution sensor logs with configurable timeframes, min/max/average statistics, and threshold bounds.</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button id="btn-export-csv" class="btn btn-secondary btn-sm">Export CSV</button>
+              <button id="btn-export-json" class="btn btn-secondary btn-sm">Export JSON</button>
+            </div>
+          </div>
+
+          <!-- Historical Filter Toolbar -->
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label for="history-plant-select" style="font-size: 0.85rem; font-weight: 600;">Plant:</label>
+              <select id="history-plant-select" class="form-select" style="width: auto; padding: 0.45rem 1rem;">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <!-- Time Filters: 1h, 24h, 7d, 30d, Custom -->
+            <div class="filter-group">
+              <div class="time-btn-group">
+                <button class="time-btn" data-range="1h">Last 1 Hour</button>
+                <button class="time-btn active" data-range="24h">Last 24 Hours</button>
+                <button class="time-btn" data-range="7d">Last 7 Days</button>
+                <button class="time-btn" data-range="30d">Last 30 Days</button>
+                <button class="time-btn" data-range="custom">Custom Range</button>
+              </div>
+
+              <!-- Custom Date Range Form -->
+              <div id="custom-date-container" class="custom-date-inputs">
+                <input type="datetime-local" id="custom-date-from" />
+                <span>to</span>
+                <input type="datetime-local" id="custom-date-to" />
+                <button id="btn-apply-custom-range" class="btn btn-sm btn-primary">Apply</button>
+              </div>
+
+              <button id="btn-refresh-charts" class="btn btn-icon" title="Reload Chart Data">
+                ⟳
+              </button>
+            </div>
+          </div>
+
+          <!-- Summary Metric Stats Cards (Current, Min, Max, Avg) -->
+          <div class="history-stats-bar">
+            
+            <div class="stat-metric-card">
+              <div class="stat-title">Soil Moisture (Window)</div>
+              <div id="stat-moist-cur" class="stat-val-main" style="color: #0284c7;">--%</div>
+              <div class="stat-min-max-row">
+                <span>Min: <strong id="stat-moist-min">--</strong></span>
+                <span>Max: <strong id="stat-moist-max">--</strong></span>
+                <span>Avg: <strong id="stat-moist-avg">--</strong></span>
+              </div>
+            </div>
+
+            <div class="stat-metric-card">
+              <div class="stat-title">Temperature (Window)</div>
+              <div id="stat-temp-cur" class="stat-val-main" style="color: #ea580c;">--°C</div>
+              <div class="stat-min-max-row">
+                <span>Min: <strong id="stat-temp-min">--</strong></span>
+                <span>Max: <strong id="stat-temp-max">--</strong></span>
+                <span>Avg: <strong id="stat-temp-avg">--</strong></span>
+              </div>
+            </div>
+
+            <div class="stat-metric-card">
+              <div class="stat-title">Light Intensity (Window)</div>
+              <div id="stat-light-cur" class="stat-val-main" style="color: #ca8a04;">-- lx</div>
+              <div class="stat-min-max-row">
+                <span>Min: <strong id="stat-light-min">--</strong></span>
+                <span>Max: <strong id="stat-light-max">--</strong></span>
+                <span>Avg: <strong id="stat-light-avg">--</strong></span>
+              </div>
+            </div>
+
+            <div class="stat-metric-card">
+              <div class="stat-title">Telemetry Integrity</div>
+              <div class="stat-val-main" style="color: var(--primary-600); font-size: 1.25rem; margin-top: 0.4rem;">
+                ✓ 100% Valid
+              </div>
+              <div class="stat-min-max-row">
+                <span>Zero Packet Loss</span>
+                <span>Checksum OK</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 1. Soil Moisture Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">
+                <span>💧</span> Soil Moisture Dynamics (%)
+              </div>
+              <span class="chip" style="font-size: 0.75rem;">Capacitive / Resistive Sensor</span>
+            </div>
+            <div class="chart-container-wrap">
+              <div class="chart-overlay hidden"></div>
+              <canvas id="chart-canvas-moisture"></canvas>
+            </div>
+          </div>
+
+          <!-- 2. Temperature Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">
+                <span>🌡️</span> Ambient Temperature Curve
+              </div>
+              <span class="chip" style="font-size: 0.75rem;">DHT22 / DS18B20 Sensor</span>
+            </div>
+            <div class="chart-container-wrap">
+              <div class="chart-overlay hidden"></div>
+              <canvas id="chart-canvas-temperature"></canvas>
+            </div>
+          </div>
+
+          <!-- 3. Light Intensity Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title">
+                <span>☀️</span> Photosynthetic Light Exposure (Lux / ADC)
+              </div>
+              <span class="chip" style="font-size: 0.75rem;">LDR / BH1750 Sensor</span>
+            </div>
+            <div class="chart-container-wrap">
+              <div class="chart-overlay hidden"></div>
+              <canvas id="chart-canvas-light"></canvas>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===========================================================
+             PAGE 4: ALERTS AND RECOMMENDATIONS
+             =========================================================== -->
+        <section id="page-alerts" class="page">
+          <div class="page-header">
+            <div class="page-header-title">
+              <h2>Smart Alerts & Horticultural Guidance Center</h2>
+              <p>Active warnings, watering recommendations, scheduled care reminders, and pest inspection records.</p>
+            </div>
+            <button id="btn-report-pest-obs" class="btn btn-secondary">
+              🐛 Report Pest/Disease Observation
+            </button>
+          </div>
+
+          <!-- Alert Counters -->
+          <div class="alerts-summary-grid">
+            <div class="alert-counter-card">
+              <div class="alert-counter-icon" style="background: var(--primary-50); color: var(--primary-600);">
+                🔔
+              </div>
+              <div>
+                <div id="counter-alerts-total" class="alert-counter-val">0</div>
+                <div class="alert-counter-label">Active Alerts</div>
+              </div>
+            </div>
+
+            <div class="alert-counter-card">
+              <div class="alert-counter-icon" style="background: var(--danger-50); color: var(--danger-600);">
+                🚨
+              </div>
+              <div>
+                <div id="counter-alerts-critical" class="alert-counter-val" style="color: var(--danger-600);">0</div>
+                <div class="alert-counter-label">Critical Alerts</div>
+              </div>
+            </div>
+
+            <div class="alert-counter-card">
+              <div class="alert-counter-icon" style="background: var(--warning-50); color: var(--warning-600);">
+                ⚠️
+              </div>
+              <div>
+                <div id="counter-alerts-warning" class="alert-counter-val" style="color: var(--warning-600);">0</div>
+                <div class="alert-counter-label">Warnings</div>
+              </div>
+            </div>
+
+            <div class="alert-counter-card">
+              <div class="alert-counter-icon" style="background: var(--accent-blue-50); color: var(--accent-blue-600);">
+                ✓
+              </div>
+              <div>
+                <div id="counter-alerts-resolved" class="alert-counter-val" style="color: var(--accent-blue-600);">0</div>
+                <div class="alert-counter-label">Resolved Care Tasks</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alerts Filter Toolbar -->
+          <div class="filter-bar">
+            <!-- Severity Filter -->
+            <div class="filter-group">
+              <span style="font-size: 0.85rem; font-weight: 600;">Severity:</span>
+              <div class="time-btn-group">
+                <button class="time-btn alert-filter-severity active" data-severity="all">All</button>
+                <button class="time-btn alert-filter-severity" data-severity="critical">Critical</button>
+                <button class="time-btn alert-filter-severity" data-severity="warning">Warnings</button>
+                <button class="time-btn alert-filter-severity" data-severity="information">Info</button>
+              </div>
+            </div>
+
+            <!-- Status Filter -->
+            <div class="filter-group">
+              <span style="font-size: 0.85rem; font-weight: 600;">Status:</span>
+              <div class="time-btn-group">
+                <button class="time-btn alert-filter-status active" data-status="all">All</button>
+                <button class="time-btn alert-filter-status" data-status="active">Active Only</button>
+                <button class="time-btn alert-filter-status" data-status="resolved">Resolved</button>
+              </div>
+            </div>
+
+            <!-- Plant Selector -->
+            <div class="filter-group">
+              <span style="font-size: 0.85rem; font-weight: 600;">Plant:</span>
+              <select id="alerts-plant-filter" class="form-select" style="width: auto; padding: 0.45rem 1rem;">
+                <!-- Populated via JS -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Alert Cards Feed -->
+          <div id="alerts-cards-container" class="alerts-list-container">
+            <!-- Injected via JavaScript -->
+          </div>
+        </section>
+
+        <!-- ===========================================================
+             PAGE 5: PLANT CARE HISTORY & ACTIVITY LOG
+             =========================================================== -->
+        <section id="page-care-log" class="page">
+          <div class="page-header">
+            <div class="page-header-title">
+              <h2>Plant Care History & Telemetry Log</h2>
+              <p>Full audit trail of physical sensor updates, recorded waterings, fertilizer schedules, and horticultural notes.</p>
+            </div>
+            <button id="btn-open-log-event" class="btn btn-primary">
+              + Log Care Activity
+            </button>
+          </div>
+
+          <!-- History Filter Toolbar -->
+          <div class="filter-bar">
+            <div class="filter-group">
+              <label for="history-log-plant-filter" style="font-size: 0.85rem; font-weight: 600;">Plant:</label>
+              <select id="history-log-plant-filter" class="form-select" style="width: auto; padding: 0.45rem 0.85rem;">
+                <!-- Dynamically loaded -->
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="history-log-type-filter" style="font-size: 0.85rem; font-weight: 600;">Event Type:</label>
+              <select id="history-log-type-filter" class="form-select" style="width: auto; padding: 0.45rem 0.85rem;">
+                <option value="all">All Events</option>
+                <option value="Watering">Watering</option>
+                <option value="Fertilizer">Fertilizer</option>
+                <option value="Pest Treatment">Pest Treatment</option>
+                <option value="Sensor Reading">Sensor Reading</option>
+                <option value="Health Warning">Health Warning</option>
+                <option value="Plant Note">Plant Note</option>
+              </select>
+            </div>
+
+            <div class="filter-group" style="flex: 1; max-width: 320px;">
+              <input type="text" id="history-log-search" class="form-input" placeholder="Search activity description..." />
+            </div>
+          </div>
+
+          <!-- Historical Table Card -->
+          <div class="history-table-card">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date & Time</th>
+                    <th>Plant</th>
+                    <th>Event Type</th>
+                    <th>Moisture</th>
+                    <th>Temp</th>
+                    <th>Light</th>
+                    <th>Health Status</th>
+                    <th>Action Taken / Summary</th>
+                  </tr>
+                </thead>
+                <tbody id="history-table-body">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Table Pagination Bar -->
+            <div class="pagination-bar">
+              <div id="pagination-info" style="font-size: 0.825rem; color: var(--text-muted);">
+                Showing 1-10 of 10 events
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <button id="btn-prev-page" class="btn btn-sm btn-secondary">Prev</button>
+                <div id="pagination-page-numbers" class="pagination-pages"></div>
+                <button id="btn-next-page" class="btn btn-sm btn-secondary">Next</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===========================================================
+             PAGE 6: SETTINGS
+             =========================================================== -->
+        <section id="page-settings" class="page">
+          <div class="page-header">
+            <div class="page-header-title">
+              <h2>System Settings & IoT Hardware Configuration</h2>
+              <p>Configure backend API endpoints, polling cadence, demo simulation mode, and per-plant thresholds.</p>
+            </div>
+            <button id="btn-reset-defaults" class="btn btn-secondary btn-sm" style="color: var(--danger-600);">
+              Restore Factory Defaults
+            </button>
+          </div>
+
+          <div class="settings-grid">
+            
+            <!-- Left Card: Backend API & Connectivity -->
+            <div class="settings-card">
+              <h3>🔌 Backend API & Connectivity</h3>
+              <p class="settings-card-desc">Configure the connection to your Java Spring Boot REST backend.</p>
+
+              <form id="settings-general-form">
+                <div class="settings-form-group">
+                  <label for="setting-api-url">Spring Boot Base API URL</label>
+                  <input type="text" id="setting-api-url" class="form-input" value="http://localhost:8080/api" placeholder="http://localhost:8080/api" required />
+                  <p class="form-hint">Centralized endpoint for plants, readings, alerts, and care events.</p>
+                </div>
+
+                <div class="settings-form-group">
+                  <label for="setting-refresh-interval">Telemetry Refresh Interval</label>
+                  <select id="setting-refresh-interval" class="form-select">
+                    <option value="3000">Every 3 seconds (High frequency)</option>
+                    <option value="5000" selected>Every 5 seconds (Recommended)</option>
+                    <option value="10000">Every 10 seconds</option>
+                    <option value="30000">Every 30 seconds</option>
+                    <option value="60000">Every 60 seconds</option>
+                    <option value="0">Manual Only (Disable automatic polling)</option>
+                  </select>
+                </div>
+
+                <!-- Demo Mode Toggle -->
+                <div class="switch-group">
+                  <div class="switch-label-wrap">
+                    <span class="switch-title">Demo Simulation Mode</span>
+                    <span class="switch-subtitle">Simulate live ESP32 sensor streams when backend is offline.</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="setting-demo-mode" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <!-- Test Connection Diagnostic -->
+                <div style="margin-bottom: 1.25rem;">
+                  <button type="button" id="btn-test-connection" class="btn btn-secondary btn-sm">
+                    🔍 Test Spring Boot Connection
+                  </button>
+                  <div id="connection-test-result" style="display: none; margin-top: 0.75rem;"></div>
+                </div>
+
+                <h3 style="margin-top: 1.75rem;">📐 Calibration & Units</h3>
+                <p class="settings-card-desc">Hardware sensor translation settings.</p>
+
+                <div class="form-row">
+                  <div class="settings-form-group">
+                    <label for="setting-temp-unit">Temperature Unit</label>
+                    <select id="setting-temp-unit" class="form-select">
+                      <option value="C" selected>Celsius (°C)</option>
+                      <option value="F">Fahrenheit (°F)</option>
+                    </select>
+                  </div>
+
+                  <div class="settings-form-group">
+                    <label for="setting-light-mode">Light Sensor Mode</label>
+                    <select id="setting-light-mode" class="form-select">
+                      <option value="lux" selected>Calibrated Illuminance (Lux)</option>
+                      <option value="adc">Raw ESP32 ADC (12-bit 0-4095)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="settings-form-group">
+                    <label for="setting-adc-multiplier">LDR ADC to Lux Multiplier</label>
+                    <input type="number" id="setting-adc-multiplier" class="form-input" value="12.5" step="0.1" />
+                    <p class="form-hint">Lux = ADC reading * multiplier (until calibrated).</p>
+                  </div>
+
+                  <div class="settings-form-group">
+                    <label for="setting-freshness-timeout">Stale Data Warning (seconds)</label>
+                    <input type="number" id="setting-freshness-timeout" class="form-input" value="30" min="5" max="300" />
+                    <p class="form-hint">Warns if ESP32 fails to transmit within this duration.</p>
+                  </div>
+                </div>
+
+                <div class="switch-group">
+                  <div class="switch-label-wrap">
+                    <span class="switch-title">Audio Chime on Critical Alerts</span>
+                    <span class="switch-subtitle">Play audio chime when critical moisture/temp stress occurs.</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="setting-audio-chime" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div class="switch-group">
+                  <div class="switch-label-wrap">
+                    <span class="switch-title">Browser Desktop Notifications</span>
+                    <span class="switch-subtitle">Send notification when background tab is open.</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="setting-browser-notif" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                  Save General Settings
+                </button>
+              </form>
+            </div>
+
+            <!-- Right Card: Per-Plant Threshold Rules Manager -->
+            <div class="settings-card">
+              <h3>🌾 Per-Plant Threshold Rules Manager</h3>
+              <p class="settings-card-desc">Customize specific physiological comfort zones for each individual plant.</p>
+
+              <div class="settings-form-group">
+                <label for="setting-threshold-plant">Select Plant to Configure</label>
+                <select id="setting-threshold-plant" class="form-select">
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+
+              <div style="background: var(--bg-page); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-default); margin-bottom: 1.25rem;">
+                <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main);">
+                  Soil Moisture Boundaries (%)
+                </h4>
+                <div class="form-row">
+                  <div class="settings-form-group">
+                    <label for="set-moist-min">Min Moisture (%)</label>
+                    <input type="number" id="set-moist-min" class="form-input" min="0" max="100" />
+                    <p class="form-hint">Triggers watering alert below this.</p>
+                  </div>
+                  <div class="settings-form-group">
+                    <label for="set-moist-max">Max Moisture (%)</label>
+                    <input type="number" id="set-moist-max" class="form-input" min="0" max="100" />
+                    <p class="form-hint">Triggers overwatering alert above this.</p>
+                  </div>
+                </div>
+
+                <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; margin-top: 0.5rem; color: var(--text-main);">
+                  Ambient Temperature Boundaries (°C)
+                </h4>
+                <div class="form-row">
+                  <div class="settings-form-group">
+                    <label for="set-temp-min">Min Temp (°C)</label>
+                    <input type="number" id="set-temp-min" class="form-input" step="0.5" />
+                    <p class="form-hint">Too cold warning threshold.</p>
+                  </div>
+                  <div class="settings-form-group">
+                    <label for="set-temp-max">Max Temp (°C)</label>
+                    <input type="number" id="set-temp-max" class="form-input" step="0.5" />
+                    <p class="form-hint">Heat stress warning threshold.</p>
+                  </div>
+                </div>
+
+                <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; margin-top: 0.5rem; color: var(--text-main);">
+                  Photosynthetic Light Boundaries (Lux)
+                </h4>
+                <div class="form-row">
+                  <div class="settings-form-group">
+                    <label for="set-light-min">Min Illuminance (lux)</label>
+                    <input type="number" id="set-light-min" class="form-input" step="500" />
+                  </div>
+                  <div class="settings-form-group">
+                    <label for="set-light-max">Max Illuminance (lux)</label>
+                    <input type="number" id="set-light-max" class="form-input" step="500" />
+                  </div>
+                </div>
+              </div>
+
+              <button id="btn-save-thresholds" type="button" class="btn btn-primary" style="width: 100%;">
+                Save Plant Thresholds
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 1: REGISTER / EDIT PLANT MODAL
+       =================================================================== -->
+  <div id="plant-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="plant-modal-title">Register New Plant Profile</h3>
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <form id="plant-form">
+        <div class="modal-body">
+          <input type="hidden" id="plant-id-input" />
+          
+          <div class="settings-form-group">
+            <label for="plant-preset-select">Quick Botanical Presets (Auto-fills parameters)</label>
+            <select id="plant-preset-select" class="form-select">
+              <option value="">-- Choose a Preset or Enter Custom --</option>
+              <option value="tomato">Tomato (Roma / Cherry)</option>
+              <option value="basil">Sweet Basil (Genovese)</option>
+              <option value="chilli">Chilli Pepper (Hot Bird's Eye)</option>
+              <option value="spinach">Spinach (Baby Leaf)</option>
+              <option value="mint">Mint (Spearmint)</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="plant-name-input">Plant Name *</label>
+              <input type="text" id="plant-name-input" class="form-input" placeholder="e.g. Roma Tomato" required />
+            </div>
+            <div class="settings-form-group">
+              <label for="plant-species-input">Botanical / Species Name</label>
+              <input type="text" id="plant-species-input" class="form-input" placeholder="e.g. Solanum lycopersicum" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="plant-type-input">Plant Type / Family</label>
+              <input type="text" id="plant-type-input" class="form-input" placeholder="e.g. Tomato / Herb / Vegetable" />
+            </div>
+            <div class="settings-form-group">
+              <label for="plant-stage-input">Growth Stage</label>
+              <select id="plant-stage-input" class="form-select">
+                <option value="Seedling">Seedling (Early Stage)</option>
+                <option value="Vegetative" selected>Vegetative (Leaf Growth)</option>
+                <option value="Flowering">Flowering</option>
+                <option value="Flowering & Fruiting">Flowering & Fruiting</option>
+                <option value="Harvest Ready">Harvest Ready</option>
+                <option value="Dormant">Dormant</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="plant-env-input">Growing Environment</label>
+              <select id="plant-env-input" class="form-select">
+                <option value="Indoor Smart Greenhouse">Indoor Smart Greenhouse</option>
+                <option value="Balcony Container Box">Balcony Container Box</option>
+                <option value="Hydroponic Rack #2">Hydroponic Rack</option>
+                <option value="Outdoor Raised Bed">Outdoor Raised Bed</option>
+                <option value="Vertical Farm Bed A">Vertical Farm Bed</option>
+              </select>
+            </div>
+            <div class="settings-form-group">
+              <label for="plant-image-input">Plant Illustration / Image Asset</label>
+              <select id="plant-image-input" class="form-select">
+                <option value="assets/images/tomato.svg">Tomato (SVG Illustration)</option>
+                <option value="assets/images/basil.svg">Basil (SVG Illustration)</option>
+                <option value="assets/images/chilli.svg">Chilli (SVG Illustration)</option>
+                <option value="assets/images/spinach.svg">Spinach (SVG Illustration)</option>
+                <option value="assets/images/mint.svg">Mint (SVG Illustration)</option>
+                <option value="assets/images/plant-placeholder.svg">Generic Seedling</option>
+              </select>
+            </div>
+          </div>
+
+          <h4 style="font-size: 0.9rem; font-weight: 700; margin: 1rem 0 0.5rem 0;">Target Threshold Ranges</h4>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="plant-moist-min">Moisture Min (%)</label>
+              <input type="number" id="plant-moist-min" class="form-input" value="50" min="0" max="100" required />
+            </div>
+            <div class="settings-form-group">
+              <label for="plant-moist-max">Moisture Max (%)</label>
+              <input type="number" id="plant-moist-max" class="form-input" value="80" min="0" max="100" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="plant-temp-min">Temp Min (°C)</label>
+              <input type="number" id="plant-temp-min" class="form-input" value="18" step="0.5" required />
+            </div>
+            <div class="settings-form-group">
+              <label for="plant-temp-max">Temp Max (°C)</label>
+              <input type="number" id="plant-temp-max" class="form-input" value="28" step="0.5" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="plant-light-min">Light Min (lux)</label>
+              <input type="number" id="plant-light-min" class="form-input" value="12000" step="500" required />
+            </div>
+            <div class="settings-form-group">
+              <label for="plant-light-max">Light Max (lux)</label>
+              <input type="number" id="plant-light-max" class="form-input" value="30000" step="500" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-modal-dismiss>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Plant Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 2: RECORD WATERING ACTION
+       =================================================================== -->
+  <div id="watering-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>💧 Record Manual Watering</h3>
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <form id="watering-form">
+        <div class="modal-body">
+          <input type="hidden" id="water-resolve-alert-id" />
+          
+          <div class="settings-form-group">
+            <label for="water-plant-select">Target Plant</label>
+            <select id="water-plant-select" class="form-select" required></select>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="water-datetime-input">Date & Time</label>
+              <input type="datetime-local" id="water-datetime-input" class="form-input" required />
+            </div>
+            <div class="settings-form-group">
+              <label for="water-amount-input">Water Volume (ml)</label>
+              <input type="number" id="water-amount-input" class="form-input" value="350" min="10" max="5000" required />
+            </div>
+          </div>
+
+          <div class="settings-form-group">
+            <label for="water-source-input">Water Type / Method</label>
+            <select id="water-source-input" class="form-select">
+              <option value="Room-temp filtered water">Room-temp filtered water</option>
+              <option value="Rainwater harvest">Rainwater harvest</option>
+              <option value="Drip reservoir replenishment">Drip reservoir replenishment</option>
+              <option value="Bottom-watering tray soak">Bottom-watering tray soak</option>
+            </select>
+          </div>
+
+          <div class="settings-form-group">
+            <label for="water-notes-input">Horticultural Notes</label>
+            <textarea id="water-notes-input" class="form-textarea" rows="2" placeholder="e.g. Soil was completely dry 2 inches deep."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-modal-dismiss>Cancel</button>
+          <button type="submit" class="btn btn-primary">Record Watering</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 3: RECORD FERTILIZER APPLICATION
+       =================================================================== -->
+  <div id="fertilizer-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>🌱 Record Fertilizer Application</h3>
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <form id="fertilizer-form">
+        <div class="modal-body">
+          <div class="settings-form-group">
+            <label for="fert-plant-select">Target Plant</label>
+            <select id="fert-plant-select" class="form-select" required></select>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="fert-datetime-input">Date & Time</label>
+              <input type="datetime-local" id="fert-datetime-input" class="form-input" required />
+            </div>
+            <div class="settings-form-group">
+              <label for="fert-product-input">Product / Formulation</label>
+              <input type="text" id="fert-product-input" class="form-input" value="Organic Balanced NPK 5-5-5" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="fert-amount-input">Dosage / Concentration</label>
+              <input type="text" id="fert-amount-input" class="form-input" value="10 ml in 1L water" required />
+            </div>
+            <div class="settings-form-group">
+              <label for="fert-method-input">Application Method</label>
+              <select id="fert-method-input" class="form-select">
+                <option value="Soil Drench">Soil Drench</option>
+                <option value="Foliar Spray">Foliar Spray</option>
+                <option value="Slow-release granules">Slow-release granules</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-form-group">
+            <label for="fert-notes-input">Application Notes</label>
+            <textarea id="fert-notes-input" class="form-textarea" rows="2" placeholder="e.g. Applied post-watering to prevent root fertilizer burn."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-modal-dismiss>Cancel</button>
+          <button type="submit" class="btn btn-primary">Record Application</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 4: RECORD PEST TREATMENT
+       =================================================================== -->
+  <div id="pest-treatment-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>🐛 Record Pest / Disease Treatment</h3>
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <form id="pest-treatment-form">
+        <div class="modal-body">
+          <div class="settings-form-group">
+            <label for="pest-treat-plant-select">Target Plant</label>
+            <select id="pest-treat-plant-select" class="form-select" required></select>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="pest-treat-datetime-input">Date & Time</label>
+              <input type="datetime-local" id="pest-treat-datetime-input" class="form-input" required />
+            </div>
+            <div class="settings-form-group">
+              <label for="pest-treat-method-input">Treatment Applied</label>
+              <input type="text" id="pest-treat-method-input" class="form-input" value="Neem Oil Spray (0.5%)" required />
+            </div>
+          </div>
+
+          <div class="settings-form-group">
+            <label for="pest-treat-symptoms-input">Observed Symptoms / Target Pests</label>
+            <input type="text" id="pest-treat-symptoms-input" class="form-input" placeholder="e.g. Aphids on lower leaf cluster" required />
+          </div>
+
+          <div class="settings-form-group">
+            <label for="pest-treat-notes-input">Treatment Notes</label>
+            <textarea id="pest-treat-notes-input" class="form-textarea" rows="2" placeholder="e.g. Sprayed in evening; plant moved to shaded nursery area."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-modal-dismiss>Cancel</button>
+          <button type="submit" class="btn btn-primary">Record Treatment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 5: ADD PLANT NOTE
+       =================================================================== -->
+  <div id="note-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>📝 Add Plant Observation Note</h3>
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <form id="note-form">
+        <div class="modal-body">
+          <div class="settings-form-group">
+            <label for="note-plant-select">Target Plant</label>
+            <select id="note-plant-select" class="form-select" required></select>
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="note-datetime-input">Date & Time</label>
+              <input type="datetime-local" id="note-datetime-input" class="form-input" required />
+            </div>
+            <div class="settings-form-group">
+              <label for="note-category-select">Category</label>
+              <select id="note-category-select" class="form-select">
+                <option value="General Observation">General Observation</option>
+                <option value="Pruning / Trimming">Pruning / Trimming</option>
+                <option value="Flower / Fruit Bloom">Flower / Fruit Bloom</option>
+                <option value="Repotting">Repotting</option>
+                <option value="Hardware Adjustment">Hardware Adjustment</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-form-group">
+            <label for="note-text-input">Observation Details</label>
+            <textarea id="note-text-input" class="form-textarea" rows="3" placeholder="Enter detailed note..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-modal-dismiss>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Note</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 6: REPORT PEST & DISEASE OBSERVATION
+       =================================================================== -->
+  <div id="pest-obs-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>🔬 Report Pest / Disease Observation</h3>
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <form id="pest-obs-form">
+        <div class="modal-body">
+          <div style="background: var(--warning-50); border: 1px solid var(--warning-100); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.8rem; color: var(--warning-600);">
+            <strong>Notice:</strong> ESP32 sensors (moisture, temp, light) do not detect biological pests or diseases. This form records your physical inspection observations and provides cautious Integrated Pest Management (IPM) recommendations.
+          </div>
+
+          <div class="settings-form-group">
+            <label for="pest-plant-select">Plant Inspected</label>
+            <select id="pest-plant-select" class="form-select" required></select>
+          </div>
+
+          <div class="settings-form-group">
+            <label for="pest-symptoms-input">Observed Symptoms *</label>
+            <input type="text" id="pest-symptoms-input" class="form-input" placeholder="e.g. Tiny white insects under leaves / powdery spots" required />
+          </div>
+
+          <div class="form-row">
+            <div class="settings-form-group">
+              <label for="pest-affected-parts">Affected Plant Parts</label>
+              <select id="pest-affected-parts" class="form-select">
+                <option value="Lower leaf undersides">Lower leaf undersides</option>
+                <option value="New shoot tips">New shoot tips</option>
+                <option value="Main stem base">Main stem base</option>
+                <option value="Fruit / flowers">Fruit / flowers</option>
+                <option value="Soil surface">Soil surface</option>
+              </select>
+            </div>
+            <div class="settings-form-group">
+              <label for="pest-severity-select">Severity Level</label>
+              <select id="pest-severity-select" class="form-select">
+                <option value="Warning" selected>Warning (Early / Isolated)</option>
+                <option value="Critical">Critical (Spreading rapidly)</option>
+                <option value="Information">Information (Minor / Watching)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-form-group">
+            <label for="pest-photo-url">Photo Reference URL (Optional)</label>
+            <input type="text" id="pest-photo-url" class="form-input" placeholder="https://example.com/plant-photo.jpg" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-modal-dismiss>Cancel</button>
+          <button type="submit" class="btn btn-primary">Generate Guidance & Alert</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 7: RESOLVE ALERT WITH ACTION
+       =================================================================== -->
+  <div id="resolve-alert-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>✓ Resolve Alert & Record Action</h3>
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <form id="resolve-alert-form">
+        <div class="modal-body">
+          <input type="hidden" id="resolve-alert-id" />
+          <h4 id="resolve-alert-title" style="font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.85rem;"></h4>
+
+          <div class="settings-form-group">
+            <label for="resolve-action-input">Action Taken to Resolve Alert *</label>
+            <textarea id="resolve-action-input" class="form-textarea" rows="3" placeholder="Describe the physical care action performed (e.g. Watered 350ml, relocated to shade, applied neem spray)..." required></textarea>
+            <p class="form-hint">This action will be logged in your Plant Care Audit Trail.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-modal-dismiss>Cancel</button>
+          <button type="submit" class="btn btn-primary">Mark as Resolved</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 8: EVENT DETAILS VIEWER
+       =================================================================== -->
+  <div id="event-detail-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>📋 Care Event Audit Record</h3>
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="background: var(--bg-page); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <strong id="detail-plant-name" style="font-size: 1rem;"></strong>
+            <span id="detail-event-id" class="plant-id-badge"></span>
+          </div>
+          <div style="font-size: 0.825rem; color: var(--text-muted);">
+            <div><strong>Timestamp:</strong> <span id="detail-timestamp"></span></div>
+            <div><strong>Event Classification:</strong> <span id="detail-event-type"></span></div>
+            <div><strong>Logged by:</strong> <span id="detail-operator"></span></div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">
+          Sensor Snapshot at Event Time
+        </h4>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1.25rem; text-align: center;">
+          <div style="background: var(--accent-blue-50); padding: 0.5rem; border-radius: var(--radius-sm);">
+            <div style="font-size: 0.7rem; color: var(--accent-blue-700);">Moisture</div>
+            <strong id="detail-moisture" style="color: var(--accent-blue-600);"></strong>
+          </div>
+          <div style="background: #fff7ed; padding: 0.5rem; border-radius: var(--radius-sm);">
+            <div style="font-size: 0.7rem; color: #ea580c;">Temperature</div>
+            <strong id="detail-temp" style="color: #ea580c;"></strong>
+          </div>
+          <div style="background: #fefce8; padding: 0.5rem; border-radius: var(--radius-sm);">
+            <div style="font-size: 0.7rem; color: #ca8a04;">Light</div>
+            <strong id="detail-light" style="color: #ca8a04;"></strong>
+          </div>
+          <div style="background: var(--primary-50); padding: 0.5rem; border-radius: var(--radius-sm);">
+            <div style="font-size: 0.7rem; color: var(--primary-700);">Plant Health</div>
+            <strong id="detail-health" style="color: var(--primary-700);"></strong>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <strong style="font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Action Taken:</strong>
+          <p id="detail-action" style="font-size: 0.9rem; color: var(--text-main); background: var(--bg-page); padding: 0.65rem; border-radius: var(--radius-sm);"></p>
+        </div>
+
+        <div>
+          <strong style="font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Operator Notes:</strong>
+          <p id="detail-notes" style="font-size: 0.85rem; color: var(--text-muted);"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-modal-dismiss>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 9: DELETE PLANT CONFIRMATION
+       =================================================================== -->
+  <div id="delete-plant-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 style="color: var(--danger-600);">⚠️ Confirm Plant Deletion</h3>
+        <button class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">
+          Are you sure you want to remove <strong id="delete-plant-name-label"></strong> from the active monitoring system?
+        </p>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">
+          This will unlink the ESP32 sensor channel and archive historical telemetry data.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-modal-dismiss>Cancel</button>
+        <button type="button" id="btn-confirm-delete" class="btn btn-danger">Yes, Delete Plant</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Application Scripts (Modular Architecture) -->
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/plants.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

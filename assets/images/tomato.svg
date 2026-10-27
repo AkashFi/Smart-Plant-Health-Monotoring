@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="potGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#78350f" />
+    </linearGradient>
+    <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#92400e" />
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+    <linearGradient id="darkLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16a34a" />
+      <stop offset="100%" stop-color="#14532d" />
+    </linearGradient>
+    <linearGradient id="tomatoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="60%" stop-color="#dc2626" />
+      <stop offset="100%" stop-color="#991b1b" />
+    </linearGradient>
+    <linearGradient id="tomatoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f87171" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Background Soft Circle -->
+  <circle cx="100" cy="100" r="90" fill="#ecfdf5" />
+
+  <!-- Soil -->
+  <ellipse cx="100" cy="148" rx="44" ry="12" fill="#451a03" opacity="0.8" />
+
+  <!-- Main Stem -->
+  <path d="M100 148 Q100 100 95 65 Q92 48 90 35" fill="none" stroke="#15803d" stroke-width="5" stroke-linecap="round" />
+  
+  <!-- Left Branches & Leaves -->
+  <path d="M98 120 Q80 110 65 115" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round" />
+  <path d="M65 115 C55 105 45 115 50 125 C55 130 70 125 65 115 Z" fill="url(#leafGrad)" />
+
+  <path d="M97 90 Q75 80 55 82" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round" />
+  <path d="M55 82 C40 70 35 85 45 92 C55 96 60 88 55 82 Z" fill="url(#leafGrad)" />
+
+  <!-- Right Branches & Leaves -->
+  <path d="M98 105 Q120 95 135 102" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round" />
+  <path d="M135 102 C150 95 155 110 145 116 C135 120 125 110 135 102 Z" fill="url(#darkLeafGrad)" />
+
+  <path d="M95 75 Q120 62 140 68" fill="none" stroke="#15803d" stroke-width="3" stroke-linecap="round" />
+  <path d="M140 68 C155 58 160 72 150 80 C140 85 130 76 140 68 Z" fill="url(#leafGrad)" />
+
+  <!-- Top Foliage -->
+  <path d="M90 35 C80 20 105 20 98 33 Z" fill="url(#leafGrad)" />
+  <path d="M90 35 C75 35 78 45 88 42 Z" fill="url(#darkLeafGrad)" />
+  <path d="M90 35 C105 32 108 45 94 43 Z" fill="url(#leafGrad)" />
+
+  <!-- Tomatoes (Fruit) -->
+  <!-- Tomato 1 (Big ripe) -->
+  <g filter="url(#shadow)">
+    <circle cx="75" cy="100" r="15" fill="url(#tomatoGrad1)" />
+    <!-- Tomato shine -->
+    <ellipse cx="71" cy="95" rx="4" ry="2.5" fill="#fecaca" opacity="0.6" transform="rotate(-30 71 95)" />
+    <!-- Calyx (Green top) -->
+    <path d="M75 85 L73 89 L69 87 L72 90 L68 93 L73 92 L75 95 L76 92 L81 93 L77 90 L80 87 L76 89 Z" fill="#15803d" />
+  </g>
+
+  <!-- Tomato 2 (Medium ripe) -->
+  <g filter="url(#shadow)">
+    <circle cx="120" cy="85" r="13" fill="url(#tomatoGrad2)" />
+    <ellipse cx="116" cy="81" rx="3.5" ry="2" fill="#fecaca" opacity="0.6" transform="rotate(-30 116 81)" />
+    <path d="M120 72 L118 76 L114 74 L117 77 L113 80 L118 79 L120 82 L121 79 L126 80 L122 77 L125 74 L121 76 Z" fill="#15803d" />
+  </g>
+
+  <!-- Tomato 3 (Small ripening orange) -->
+  <g filter="url(#shadow)">
+    <circle cx="108" cy="120" r="10" fill="#f97316" />
+    <ellipse cx="105" cy="117" rx="2.5" ry="1.5" fill="#ffedd5" opacity="0.6" transform="rotate(-30 105 117)" />
+    <path d="M108 110 L106 113 L103 112 L105 114 L102 116 L106 115 L108 117 L109 115 L113 116 L110 114 L112 112 L109 113 Z" fill="#15803d" />
+  </g>
+
+  <!-- Terracotta Plant Pot -->
+  <g filter="url(#shadow)">
+    <!-- Pot rim -->
+    <rect x="52" y="142" width="96" height="12" rx="4" fill="url(#rimGrad)" />
+    <!-- Pot body -->
+    <path d="M58 154 L68 185 Q70 188 74 188 L126 188 Q130 188 132 185 L142 154 Z" fill="url(#potGrad)" />
+    <!-- Pot accent stripe -->
+    <line x1="63" y1="162" x2="137" y2="162" stroke="#d97706" stroke-width="2" opacity="0.6" />
+  </g>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="chilliPotGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="chilliRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="70%" stop-color="#b91c1c" />
+      <stop offset="100%" stop-color="#7f1d1d" />
+    </linearGradient>
+    <linearGradient id="chilliGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#84cc16" />
+      <stop offset="100%" stop-color="#4d7c0f" />
+    </linearGradient>
+    <linearGradient id="chilliLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+    <filter id="shadowC" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Background Soft Circle -->
+  <circle cx="100" cy="100" r="90" fill="#fef2f2" />
+
+  <!-- Soil -->
+  <ellipse cx="100" cy="146" rx="46" ry="12" fill="#451a03" opacity="0.8" />
+
+  <!-- Stems -->
+  <path d="M100 146 Q98 110 96 70" fill="none" stroke="#16a34a" stroke-width="4.5" stroke-linecap="round" />
+  <path d="M99 125 Q80 110 65 112" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" />
+  <path d="M98 105 Q120 95 136 100" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" />
+  <path d="M96 85 Q75 75 60 70" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Leaves -->
+  <path d="M65 112 C50 100 45 115 55 125 C65 130 75 120 65 112 Z" fill="url(#chilliLeaf)" filter="url(#shadowC)" />
+  <path d="M136 100 C155 90 155 110 142 120 C130 125 125 110 136 100 Z" fill="url(#chilliLeaf)" filter="url(#shadowC)" />
+  <path d="M60 70 C42 60 40 80 50 88 C62 92 70 80 60 70 Z" fill="url(#chilliLeaf)" filter="url(#shadowC)" />
+  <path d="M96 70 C80 50 110 40 100 55 C95 62 96 68 96 70 Z" fill="url(#chilliLeaf)" filter="url(#shadowC)" />
+  <path d="M96 60 C115 45 120 65 110 75 C100 80 96 68 96 60 Z" fill="url(#chilliLeaf)" filter="url(#shadowC)" />
+
+  <!-- Hanging Chilli Peppers! -->
+  <!-- Chilli 1 (Red Curved Hanging Left) -->
+  <g filter="url(#shadowC)">
+    <!-- Calyx & stem -->
+    <path d="M78 112 Q75 118 72 122" stroke="#15803d" stroke-width="2.5" fill="none" />
+    <path d="M70 120 L76 122 L74 125 L68 123 Z" fill="#15803d" />
+    <!-- Pepper Body -->
+    <path d="M70 122 Q65 138 68 152 Q72 165 74 168 Q75 160 75 145 Q76 130 74 122 Z" fill="url(#chilliRed)" />
+    <!-- Highlight shine -->
+    <path d="M71 126 Q68 138 70 148" stroke="#fca5a5" stroke-width="1.2" fill="none" opacity="0.7" />
+  </g>
+
+  <!-- Chilli 2 (Red Hanging Center-Right) -->
+  <g filter="url(#shadowC)">
+    <path d="M115 100 Q118 108 120 114" stroke="#15803d" stroke-width="2.5" fill="none" />
+    <path d="M116 112 L124 114 L122 118 L114 115 Z" fill="#15803d" />
+    <path d="M116 114 Q122 128 125 145 Q128 158 128 160 Q124 152 120 138 Q118 125 116 114 Z" fill="url(#chilliRed)" />
+    <path d="M119 118 Q123 130 125 142" stroke="#fca5a5" stroke-width="1.2" fill="none" opacity="0.7" />
+  </g>
+
+  <!-- Chilli 3 (Small green young pepper) -->
+  <g filter="url(#shadowC)">
+    <path d="M88 88 Q90 94 92 98" stroke="#15803d" stroke-width="2" fill="none" />
+    <path d="M90 98 Q95 108 97 120 Q96 115 94 105 Q92 100 90 98 Z" fill="url(#chilliGreen)" />
+  </g>
+
+  <!-- Blue Glazed Ceramic Pot -->
+  <g filter="url(#shadowC)">
+    <rect x="52" y="140" width="96" height="10" rx="3" fill="#0284c7" />
+    <path d="M57 150 L67 186 Q69 188 74 188 L126 188 Q131 188 133 186 L143 150 Z" fill="url(#chilliPotGrad)" />
+    <line x1="62" y1="156" x2="138" y2="156" stroke="#38bdf8" stroke-width="2" opacity="0.6" />
+    <line x1="66" y1="168" x2="134" y2="168" stroke="#bae6fd" stroke-width="1" opacity="0.4" />
+  </g>
+</svg>
